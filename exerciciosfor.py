@@ -12,10 +12,10 @@ nPrecoTotal = 0
 
 print("--- Recibo da Compra ---")
 for produto, preco in zip(produtos, precos):
-    print(f"O produto {produto} custa R$ {preco}")
+    print(f"O produto {produto} custa R$ {preco:.2f}")
     nPrecoTotal += preco
 print("------------------------")
-print(f"Total da compra: R$ {nPrecoTotal}")
+print(f"Total da compra: R$ {nPrecoTotal:.2f}")
 
 #Exercício utilizando .items()
 print("--------------------------------------------------------\n\n")

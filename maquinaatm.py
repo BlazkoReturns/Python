@@ -21,7 +21,7 @@ while True:
          nSaldo -= nTransacao
          print(f"Saldo após o saque: {nSaldo}")
       elif nOpcao == 3:
-         print(f"Saldo após o saque: {nSaldo}")
+         print(f"Seu saldo é: {nSaldo}")
       elif nOpcao == 4:
          break
       else:

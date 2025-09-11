@@ -1,10 +1,6 @@
 import operacoes
 
-transacoes = [
-    {'tipo': 'receita', 'descricao': 'Salário', 'valor': 5000.00},
-    {'tipo': 'despesa', 'descricao': 'Aluguel', 'valor': 1500.00},
-    {'tipo': 'despesa', 'descricao': 'Internet', 'valor': 120.00}
-]
+transacoes = operacoes.carregar_transacoes()
 
 while True:
     print("1.Adicionar Transação (Receita/Despesa)")
@@ -25,6 +21,7 @@ while True:
        elif nOpcao == 2:
            operacoes.exibir_extrato(transacoes)
        else:
+           operacoes.salvar_transacoes(transacoes)
            break    
     except ValueError:
         print("Digite uma das opções oferecidas.\n")

@@ -1,27 +1,52 @@
 import operacoes
 
-transacoes = operacoes.carregar_transacoes()
+NOME_ARQUIVO = "transacoes.csv"
+transacoes = operacoes.carregar_transacoes(NOME_ARQUIVO)
 
 while True:
-    print("1.Adicionar Transação (Receita/Despesa)")
-    print("2.Ver Extrato")
-    print("3.Sair")
+    print("\n--- GERENCIADOR DE FINANÇAS ---")
+    print("1. Adicionar Transação")
+    print("2. Ver Extrato e Saldo")
+    print("3. Sair")
 
     try:
-       nOpcao = int(input("\nSelecione a opção desejada:"))
-       if nOpcao == 1:
-           print("1.Receita")
-           print("2.Despesa")
-           nOpcao = int(input("Selecione a opção desejada:"))
-           cDescricao = input("Descreva a transação:")
-           nValor = float(input("Informe o valor da transação:").replace(",","."))
-           
-           transacoes = operacoes.adicionar_transacao(transacoes,"Receita" if nOpcao == 1 else "Despesa",cDescricao,nValor)
-           print("Transação concluida.")
-       elif nOpcao == 2:
-           operacoes.exibir_extrato(transacoes)
-       else:
-           operacoes.salvar_transacoes(transacoes)
-           break    
+        opcao = int(input("\nSelecione a opção desejada: "))
+
+        if opcao == 1:
+            print("\n--- Nova Transação ---")
+            tipo_input = input("Digite o tipo (1 para Receita, 2 para Despesa): ")
+            
+            if tipo_input == '1':
+                tipo = 'receita'
+            elif tipo_input == '2':
+                tipo = 'despesa'
+            else:
+                print("Tipo inválido. Operação cancelada.")
+                continue
+
+            descricao = input("Descreva a transação: ")
+            valor_str = input("Informe o valor da transação: ").replace(",", ".")
+            valor = float(valor_str)
+
+            operacoes.adicionar_transacao(transacoes, tipo, descricao, valor)
+            print(">>> Transação adicionada com sucesso! <<<")
+
+        elif opcao == 2:
+            operacoes.exibir_extrato(transacoes)
+            saldo_atual = operacoes.calcular_saldo(transacoes)
+            print("---------------------------------")
+            print(f"SALDO ATUAL: R$ {saldo_atual:.2f}")
+            print("---------------------------------")
+            
+        elif opcao == 3:
+            operacoes.salvar_transacoes(transacoes, NOME_ARQUIVO)
+            print("Dados salvos. Saindo do programa. Até logo!")
+            break
+        
+        else:
+            print("Opção inválida. Por favor, escolha uma das opções do menu.")
+
     except ValueError:
-        print("Digite uma das opções oferecidas.\n")
+        print("Erro: Entrada inválida. Por favor, digite apenas números.")
+    except Exception as e:
+        print(f"Ocorreu um erro inesperado: {e}")

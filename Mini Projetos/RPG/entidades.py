@@ -2,14 +2,11 @@ import random
 
 class Heroi:
 
-    nome = ""
-    vida = 100
-    forca = 5
-    inventario = ["Maça","Chave Enferrujada"]
-
-    def __init__(self, nome):
+    def __init__(self, nome, vida, forca, inventario):
         self.nome = nome
-        
+        self.vida = vida
+        self.forca = forca
+        self.inventario = inventario
     def atacar(self, alvo):
         alvo -= (self.forca + (1.1*self.forca if random.randint(1,10) > 9 else 0))
         return alvo 

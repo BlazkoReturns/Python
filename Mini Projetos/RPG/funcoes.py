@@ -1,3 +1,5 @@
+import time
+
 def titulo():
     print("\n****************************************")
     print("*              Mini RPG 1.0            *")
@@ -7,8 +9,8 @@ def acao_movimento():
     print("1.Norte")
     print("2.Leste")
     print("3.Sul")
-    print("4.Oeste")
-    direcao = int(input("Qual direção deseja avançar ?"))
+    print("4.Oeste\n")
+    direcao = int(input("Qual direção deseja avançar ?\n"))
     
     if direcao == 1:
         x = 0
@@ -24,3 +26,20 @@ def acao_movimento():
         y = 0
 
     return x,y
+
+def batalha(heroi,monstro):
+    while heroi.vida > 0 or monstro.vida > 0:
+       monstro.vida -= heroi.forca
+       time.sleep(1)
+       print(f"Herói bateu {heroi.forca} de dano. Inimigo com {monstro.vida} restante.")
+       if monstro.vida <= 0:
+           print("Heroi venceu.")
+           time.sleep(3)
+           break
+       heroi.vida -= monstro.forca
+       time.sleep(1)
+       print(f"Inimigo bateu {monstro.forca} de dano. Heroi com {heroi.vida} restante.")
+       if heroi.vida <= 0:
+           print(f"Inimigo venceu. {heroi.nome} seu esforços serão lembrados.")
+           break
+        

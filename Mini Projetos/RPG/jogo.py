@@ -20,6 +20,8 @@ while jogo_ativo:
       if monstro:
          print(f"Existe um {monstro.nome} nesta sala. Tentar sair dela irá iniciar uma luta.\n")
       
+      menu_acoes()      
+ 
       direcao = funcoes.acao_movimento()
       
       if monstro:

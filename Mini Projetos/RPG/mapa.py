@@ -13,7 +13,7 @@ mapa = {(0, 0):
           "monstro": None,
           "saidas": {"norte": (0, 1)}},
         (0, 1): {
-          "descricao": "Você está em um corredor estreito. Um Goblin feio te encara! Existem portas a sua esquerda e direita.",
+          "descricao": "Você está em um corredor estreito. Existem portas a sua esquerda e direita.",
           "monstro": monstros_disponiveis["Goblin"],
           "saidas": {"sul": (0, 0), "leste": (1, 1)}},
         (1, 1): {

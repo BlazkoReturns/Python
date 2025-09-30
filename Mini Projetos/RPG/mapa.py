@@ -19,6 +19,10 @@ mapa = {(0, 0):
         (1, 1): {
           "descricao": "Você entra em uma cela. Existe um cadáver pendurado através de um lençol. Não há saidas nesta cela.",
           "monstro": None,
+          "saidas": {"oeste": (0, 1)}},
+        (-1,1): {
+          "descricao": "Você entra em uma sala escura. Existe um baú fechada. Não há saidas nesta cela.",
+          "monstro": None,
           "saidas": {"oeste": (0, 1)},
-          "vitoria": True
-}}
+          "bau": ["Espada Curva","Poção Pequena"]},
+}

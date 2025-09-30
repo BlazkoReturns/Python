@@ -1,3 +1,5 @@
+import os
+
 def titulo():
     print("\n****************************************")
     print("*              Mini RPG 1.0            *")
@@ -9,4 +11,11 @@ def menu_acoes():
     print("3.Avançar Sul")
     print("4.Avançar Oeste\n")
     print("5.Ver Status")
-    print("6.Ver Itens\n")
+    print("6.Ver Itens")
+    print("7.Abrir bau\n")
+
+def limpar_tela():
+    if os.name == 'nt':
+        _ = os.system('cls')
+    else:
+        _ = os.system('clear') 

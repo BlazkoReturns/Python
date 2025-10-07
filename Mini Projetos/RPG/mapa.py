@@ -34,13 +34,13 @@ mapa = {(0, 0):
           "monstro": None,
           "saidas": {"Sul","Norte"},
           "bonus": "",
-          "vitoria":True},
+          "vitoria":False},
         (0,3): {
           "descricao": "Você entra em uma sala com um grande trono.",
           "monstro": monstros_disponiveis["Cavaleiro Sombrio"],
           "saidas": {"Norte"},
           "bonus": "nenhum",
-          "vitoria":True},
+          "vitoria":False},
        (0,4): {
           "descricao": "Você encontrou a saída desta masmorra.",
           "monstro": None,

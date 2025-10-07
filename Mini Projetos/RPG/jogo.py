@@ -1,4 +1,5 @@
 import funcoes
+import sys
 import time
 import mapa
 from entidades import Heroi
@@ -14,11 +15,30 @@ heroi = Heroi(nome,100,10)
 
 while jogo_ativo:
     try:
-        descricao = mapa.mapa[(x,y)]["descricao"]
+        descricao = mapa.mapa[(x,y)]["descricao"] 
+        bonus = mapa.mapa[(x,y)]["bonus"]
+        monstro =  mapa.mapa[(x,y)]["monstro"]
+        vitoria = mapa.mapa[(x,y)]["vitoria"]
+        
+        if vitoria:
+           print("Parabéns, você escapou.") 
+           time.sleep(3)
+           sys.exit() 
+
         print(f"\n{descricao}\n")
-        monstro =  mapa.mapa[(x,y)]["monstro"]        
+        
         if monstro:
            print(f"Existe um {monstro.nome} nesta sala. Tentar sair dela irá iniciar uma luta.\n")
+
+        if bonus == "cura":
+           print("A fonte curativa restaura sua saúde.")
+           heroi.vida = 100
+        elif bonus == "forca":
+           print("Sua força aumenta em 10 pontos.")
+           heroi.forca += 10
+           mapa.mapa[(x,y)]["bonus"] = ""
+        
+        
     except KeyError: #Entra aqui caso escolha uma direção que não esta no mapa.
         print("A direção indicada não leva a lugar nenhum.")
         x = x_previo
@@ -60,4 +80,5 @@ while jogo_ativo:
            print(f"Inimigo bateu {monstro.forca} de dano. Heroi com {heroi.vida} restante.")
            if not heroi.esta_vivo():
                print(f"Inimigo venceu. {heroi.nome} seu esforços serão lembrados.")
+               sys.exit()
                break

@@ -10,11 +10,12 @@ x = 0
 y = 0
 
 nome = input("\nDigite o nome de seu heroi:")
-heroi = Heroi(nome,100,10,["Maça","Chave Enferrujada"]) 
+heroi = Heroi(nome,100,10) 
 
 while jogo_ativo:
     try:
-        print(f"\n{mapa.mapa[(x,y)]["descricao"]}\n")
+        descricao = mapa.mapa[(x,y)]["descricao"]
+        print(f"\n{descricao}\n")
         monstro =  mapa.mapa[(x,y)]["monstro"]        
         if monstro:
            print(f"Existe um {monstro.nome} nesta sala. Tentar sair dela irá iniciar uma luta.\n")
@@ -40,22 +41,16 @@ while jogo_ativo:
         x-=1
     elif comando == 5:
         funcoes.limpar_tela() 
-        print(f"\n{heroi.nome} está com {heroi.vida} pontos de vida. Sua força é igual a {heroi.forca}.")
+        heroi.mostrar_status()
         time.sleep(3)
-    elif comando == 6:
-        for indice,item in enumerate(heroi.inventario):
-            print(f"{indice+1}. {item}")
-        time.sleep(3)
-    else:
-        adc_itens()
-         
+             
 
     if monstro:     
-       while heroi.vida > 0 or monstro.vida > 0:
+       while heroi.esta_vivo() > 0 or monstro.esta_vivo() > 0:
            monstro.vida -= heroi.forca
            time.sleep(1)
            print(f"Herói bateu {heroi.forca} de dano. Inimigo com {monstro.vida} restante.")
-           if monstro.vida <= 0:
+           if not monstro.esta_vivo():
                print("Heroi venceu.")
                mapa.mapa
                mapa.mapa[(x_previo,y_previo)]["monstro"] = None #Monstro Morreu
@@ -64,8 +59,6 @@ while jogo_ativo:
            heroi.vida -= monstro.forca
            time.sleep(1)
            print(f"Inimigo bateu {monstro.forca} de dano. Heroi com {heroi.vida} restante.")
-           if heroi.vida <= 0:
+           if not heroi.esta_vivo():
                print(f"Inimigo venceu. {heroi.nome} seu esforços serão lembrados.")
                break
-  
-       

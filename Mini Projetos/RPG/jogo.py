@@ -44,7 +44,7 @@ while jogo_ativo:
         time.sleep(3)
     elif comando == 6:
         for indice,item in enumerate(heroi.inventario):
-            print(f"{indice+1}. {item}")
+            print(f"n{indice+1}. {item}")
         time.sleep(3)
     else:
         adc_itens()

@@ -6,13 +6,11 @@ def titulo():
     print("****************************************\n")
 
 def menu_acoes():
-    print("1.Avançar Norte")
-    print("2.Avançar Leste")
+    print("\n1.Avançar Norte")
+    print("2.Avançar Oeste")
     print("3.Avançar Sul")
-    print("4.Avançar Oeste\n")
+    print("4.Avançar Leste\n")
     print("5.Ver Status")
-    print("6.Ver Itens")
-    print("7.Abrir bau\n")
 
 def limpar_tela():
     if os.name == 'nt':

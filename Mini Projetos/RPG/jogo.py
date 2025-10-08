@@ -1,4 +1,5 @@
 import funcoes
+import json
 import sys
 import time
 import mapa
@@ -9,12 +10,12 @@ funcoes.titulo()
 jogo_ativo = True
 x = 0
 y = 0
-
-nome = input("\nDigite o nome de seu heroi:")
-heroi = Heroi(nome,100,10) 
+ 
+heroi = Heroi(input("Digite o nome de seu heroi:"),100,10) 
 
 while jogo_ativo:
     try:
+        funcoes.limpar_tela()
         descricao = mapa.mapa[(x,y)]["descricao"] 
         bonus = mapa.mapa[(x,y)]["bonus"]
         monstro =  mapa.mapa[(x,y)]["monstro"]
@@ -25,10 +26,10 @@ while jogo_ativo:
            time.sleep(3)
            sys.exit() 
 
-        print(f"\n{descricao}\n")
+        print(f"\n{descricao}")
         
         if monstro:
-           print(f"Existe um {monstro.nome} nesta sala. Tentar sair dela irá iniciar uma luta.\n")
+           print(f"{monstro}. Tentar sair dela irá iniciar uma luta.\n")
 
         if bonus == "cura":
            print("A fonte curativa restaura sua saúde.")
@@ -46,7 +47,7 @@ while jogo_ativo:
         continue
  
     funcoes.menu_acoes()
-    comando = int(input("Qual ação deseja realizar ?\n"))
+    comando = int(input("\nQual ação deseja realizar ?"))
     
     x_previo = x
     y_previo = y
@@ -61,23 +62,28 @@ while jogo_ativo:
         x-=1
     elif comando == 5:
         funcoes.limpar_tela() 
-        heroi.mostrar_status()
+        heroi.__str__()
+        time.sleep(3)
+    elif comando == 6:
+        funcoes.limpar_tela()
+        dados = heroi.to_dict()
+        with open('save.json','w') as f:
+            json.dump(dados,f,indent=4)
+        print("Jogo salvo.")
         time.sleep(3)
 
     if monstro:     
-       while heroi.esta_vivo() > 0 or monstro.esta_vivo() > 0:
-           monstro.vida -= heroi.forca
+       while heroi.esta_vivo() or monstro.esta_vivo() :
+           monstro.vida = heroi.atacar(monstro.vida,monstro.nome)    
            time.sleep(1)
-           print(f"Herói bateu {heroi.forca} de dano. Inimigo com {monstro.vida} restante.")
            if not monstro.esta_vivo():
                print("Heroi venceu.")
                mapa.mapa
-               mapa.mapa[(x_previo,y_previo)]["monstro"] = None #Monstro Morreu
+               mapa.mapa[(x_previo,y_previo)]["monstro"] = None 
                time.sleep(3)
                break
-           heroi.vida -= monstro.forca
+           heroi.vida = monstro.atacar(heroi.vida,heroi.nome)
            time.sleep(1)
-           print(f"Inimigo bateu {monstro.forca} de dano. Heroi com {heroi.vida} restante.")
            if not heroi.esta_vivo():
                print(f"Inimigo venceu. {heroi.nome} seu esforços serão lembrados.")
                sys.exit()
